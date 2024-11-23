@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.loginwithanimation
+package com.capstone.free.education
 
 import org.junit.Test
 

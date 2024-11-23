@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.dicoding.picodiploma.loginwithanimation"
-    compileSdk = 33
+    namespace = "com.capstone.free.education"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.dicoding.picodiploma.loginwithanimation"
+        applicationId = "com.capstone.free.education"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -49,5 +49,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.activity:activity-ktx:1.7.2")
-
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.1")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.1")
 }

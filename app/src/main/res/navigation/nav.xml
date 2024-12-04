@@ -8,29 +8,25 @@
         android:id="@+id/home_nav"
         android:name="com.capstone.free.education.view.materi.MateriFragment"
         android:label="First Fragment"
-        tools:layout="@layout/fragment_materi" />
+        tools:layout="@layout/fragment_materi" >
+        <action
+            android:id="@+id/action_home_nav_to_setting_nav"
+            app:destination="@id/setting_nav" />
+        <action
+            android:id="@+id/action_home_nav_to_profile_nav"
+            app:destination="@id/profile_nav" />
+    </fragment>
+
 
     <fragment
-        android:id="@+id/materi_nav"
-        android:name="com.capstone.free.education.view.materi.MateriFragment"
+        android:id="@+id/setting_nav"
+        android:name="com.capstone.free.education.view.setting.SettingFragment"
         android:label="Second Fragment"
-        tools:layout="@layout/fragment_materi" />
+        tools:layout="@layout/fragment_setting" />
 
     <fragment
-        android:id="@+id/report_nav"
-        android:name="com.capstone.free.education.view.reportlink.ReportFragment"
+        android:id="@+id/profile_nav"
+        android:name="com.capstone.free.education.view.profile.ProfileFragment"
         android:label="Second Fragment"
-        tools:layout="@layout/fragment_report" />
-
-<!--    <fragment-->
-<!--        android:id="@+id/setting_nav"-->
-<!--        android:name="com.example.app.SecondFragment"-->
-<!--        android:label="Second Fragment"-->
-<!--        tools:layout="@layout/fragment_second" />-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/profile_nav"-->
-<!--        android:name="com.example.app.SecondFragment"-->
-<!--        android:label="Second Fragment"-->
-<!--        tools:layout="@layout/fragment_second" />-->
+        tools:layout="@layout/fragment_profile" />
 </navigation>

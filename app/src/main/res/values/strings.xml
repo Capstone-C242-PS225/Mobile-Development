@@ -13,7 +13,14 @@
     <string name="message_main_page">Selamat Belajar di FREE.</string>
     <string name="greeting">Halo %1$s,</string>
     <string name="logout">Keluar</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="input_text_hint">Masukkan teks di sini</string>
+    <string name="send_message_text">Kirim Pesan</string>
+    <string name="switch_user_text">Beralih Pengguna</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profilName" type="id">nama</string>
+    <string name="CityInputLayout" type="id">city</string>
+    <string name="CityEditText" type="id">cityInput</string>
+    <string name="incomeInputLayout" type="id">income</string>
+    <string name="incomeEditText" type="id">incomeInput</string>
 
 </resources>

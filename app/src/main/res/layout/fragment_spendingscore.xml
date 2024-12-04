@@ -8,55 +8,59 @@
     tools:context=".view.spendingscore.spendingscoreFragment">
 
     <TextView
-        android:id="@+id/profilName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintMarginTop="32dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/CityInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/profilName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintMarginTop="16dp"
-        app:layout_constraintMarginStart="16dp"
-        app:layout_constraintMarginEnd="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/CityEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="City"
-            android:inputType="text"
-            android:textColorHint="#9E9E9E" />
-    </com.google.android.material.textfield.TextInputLayout>
+<!--    <TextView-->
+<!--        android:id="@+id/profilName"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/name"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:gravity="center"-->
+<!--        android:textColor="#000000"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintMarginTop="32dp" />-->
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/incomeInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/CityInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintMarginTop="16dp"
-        app:layout_constraintMarginStart="16dp"
-        app:layout_constraintMarginEnd="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/incomeEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Income"
-            android:inputType="numberDecimal"
-            android:textColorHint="#9E9E9E" />
-    </com.google.android.material.textfield.TextInputLayout>
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/CityInputLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/profilName"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintMarginTop="16dp"-->
+<!--        app:layout_constraintMarginStart="16dp"-->
+<!--        app:layout_constraintMarginEnd="16dp">-->
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/CityEditText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="City"-->
+<!--            android:inputType="text"-->
+<!--            android:textColorHint="#9E9E9E" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/incomeInputLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/CityInputLayout"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintMarginTop="16dp"-->
+<!--        app:layout_constraintMarginStart="16dp"-->
+<!--        app:layout_constraintMarginEnd="16dp">-->
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/incomeEditText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Income"-->
+<!--            android:inputType="numberDecimal"-->
+<!--            android:textColorHint="#9E9E9E" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

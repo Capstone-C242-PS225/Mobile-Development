@@ -3,7 +3,7 @@ package com.capstone.free.education.view
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.capstone.free.education.data.UserRepository
+import com.capstone.free.education.data.remote.repo.UserRepository
 import com.capstone.free.education.di.Injection
 import com.capstone.free.education.view.login.LoginViewModel
 import com.capstone.free.education.view.main.MainViewModel

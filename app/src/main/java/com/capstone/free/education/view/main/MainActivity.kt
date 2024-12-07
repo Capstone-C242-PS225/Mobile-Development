@@ -22,8 +22,10 @@ import com.capstone.free.education.R
 import com.capstone.free.education.databinding.ActivityMainBinding
 import com.capstone.free.education.view.ViewModelFactory
 import com.capstone.free.education.view.home.HomeFragment
+import com.capstone.free.education.view.konsultasi.KonsultasiFragment
 import com.capstone.free.education.view.profile.ProfileFragment
 import com.capstone.free.education.view.setting.SettingFragment
+import com.capstone.free.education.view.spendingscore.spendingscoreFragment
 import com.capstone.free.education.view.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         // Set the default fragment
@@ -52,8 +54,13 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_spending -> {
+                    loadFragment(spendingscoreFragment())
+                    true
+                }
+
                 R.id.nav_setting -> {
-                    loadFragment(SettingFragment())
+                    loadFragment(KonsultasiFragment())
                     true
                 }
 

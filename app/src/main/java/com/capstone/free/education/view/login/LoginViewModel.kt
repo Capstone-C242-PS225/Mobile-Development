@@ -2,7 +2,7 @@ package com.capstone.free.education.view.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.capstone.free.education.data.UserRepository
+import com.capstone.free.education.data.remote.repo.UserRepository
 import com.capstone.free.education.data.pref.UserModel
 import kotlinx.coroutines.launch
 

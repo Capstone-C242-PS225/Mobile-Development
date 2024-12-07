@@ -1,4 +1,4 @@
-package com.capstone.free.education.data
+package com.capstone.free.education.data.remote.repo
 
 import com.capstone.free.education.data.pref.UserModel
 import com.capstone.free.education.data.pref.UserPreference

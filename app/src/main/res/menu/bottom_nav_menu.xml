@@ -9,6 +9,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/nav_spending"
+        android:icon="@drawable/spending"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/nav_setting"
         android:icon="@drawable/ic_setting"
         android:title="Setting"
@@ -19,4 +25,6 @@
         android:icon="@drawable/profile"
         android:title="Profile"
         app:showAsAction="ifRoom" />
+
+
 </menu>

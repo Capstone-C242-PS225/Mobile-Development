@@ -22,5 +22,9 @@
     <string name="CityEditText" type="id">cityInput</string>
     <string name="incomeInputLayout" type="id">income</string>
     <string name="incomeEditText" type="id">incomeInput</string>
+    <string name="title_activity_coba">cobaActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

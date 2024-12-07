@@ -6,17 +6,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.free.education.R
 import com.capstone.free.education.databinding.ActivityMainBinding
 import com.capstone.free.education.view.ViewModelFactory
+import com.capstone.free.education.view.home.HomeFragment
+import com.capstone.free.education.view.profile.ProfileFragment
+import com.capstone.free.education.view.setting.SettingFragment
 import com.capstone.free.education.view.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -29,39 +36,35 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        setContentView(R.layout.activity_main)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        if (navHostFragment is NavHostFragment) {
-            val navController = navHostFragment.navController
-
-            // Menyambungkan BottomNavigationView dengan NavController
-            val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-            NavigationUI.setupWithNavController(bottomNavigationView, navController)
-
-            // Handle pergerakan fragment berdasarkan pilihan bottom navigation
-            bottomNavigationView.setOnNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.nav_home -> {
-                        navController.navigate(R.id.home_nav)
-                        true
-                    }
-                    R.id.nav_setting -> {
-                        navController.navigate(R.id.setting_nav)
-                        true
-                    }
-                    R.id.nav_profile -> {
-                        navController.navigate(R.id.profile_nav)
-                        true
-                    }
-                    else -> false
-                }
-            }
-        } else {
-            Log.e("MainActivity", "NavHostFragment tidak ditemukan atau cast gagal")
+        // Set the default fragment
+        if (savedInstanceState == null) {
+            loadFragment(HomeFragment())
         }
 
+        // Set up BottomNavigationView listener
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    loadFragment(HomeFragment())
+                    true
+                }
 
+                R.id.nav_setting -> {
+                    loadFragment(SettingFragment())
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    loadFragment(ProfileFragment())
+                    true
+                }
+
+                else -> false
+            }
+        }
 
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
@@ -72,6 +75,14 @@ class MainActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        // Replace the fragment in the fragment container
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     private fun setupView() {

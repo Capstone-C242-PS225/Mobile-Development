@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupView()
-        setupAction()
+//        setupAction()
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -98,10 +98,10 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupAction() {
-        binding.logoutButton.setOnClickListener {
-            viewModel.logout()
-        }
-    }
+//    private fun setupAction() {
+//        binding.logoutButton.setOnClickListener {
+//            viewModel.logout()
+//        }
+//    }
 
 }

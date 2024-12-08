@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.capstone.free.education.data.UserRepository
+import com.capstone.free.education.data.remote.repo.UserRepository
 import com.capstone.free.education.data.pref.UserModel
 import kotlinx.coroutines.launch
 

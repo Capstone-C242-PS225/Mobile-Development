@@ -1,7 +1,7 @@
 package com.capstone.free.education.di
 
 import android.content.Context
-import com.capstone.free.education.data.UserRepository
+import com.capstone.free.education.data.remote.repo.UserRepository
 import com.capstone.free.education.data.pref.UserPreference
 import com.capstone.free.education.data.pref.dataStore
 

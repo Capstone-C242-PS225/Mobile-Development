@@ -10,6 +10,7 @@ import com.capstone.free.education.view.main.MainViewModel
 import com.capstone.free.education.view.profile.ProfileFragment
 import com.capstone.free.education.view.setting.SettingPreferences
 import com.capstone.free.education.view.setting.SettingViewModel
+import com.capstone.free.education.view.splash.SplashViewModel  // Menambahkan import SplashViewModel
 
 class ViewModelFactory(private val repository: UserRepository, private val setting: SettingPreferences) : ViewModelProvider.NewInstanceFactory() {
 
@@ -24,6 +25,9 @@ class ViewModelFactory(private val repository: UserRepository, private val setti
             }
             modelClass.isAssignableFrom(SettingViewModel::class.java) -> {
                 SettingViewModel(setting) as T
+            }
+            modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
+                SplashViewModel(repository) as T  // Menambahkan case untuk SplashViewModel
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

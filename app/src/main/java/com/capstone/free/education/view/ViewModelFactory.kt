@@ -7,6 +7,7 @@ import com.capstone.free.education.data.UserRepository
 import com.capstone.free.education.di.Injection
 import com.capstone.free.education.view.login.LoginViewModel
 import com.capstone.free.education.view.main.MainViewModel
+import com.capstone.free.education.view.splash.SplashViewModel  // Tambahkan import ini
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -18,6 +19,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(SplashViewModel::class.java) -> {  // Tambahkan case untuk SplashViewModel
+                SplashViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:textSize="18sp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="397dp"
+        android:layout_height="507dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/grid_home"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="432dp"
+            android:layout_height="307dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingBottom="32dp"
+            android:rowCount="2">
+
+            <!-- Floating Button 1 - Materi -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contentDescription="Materi"
+                android:src="@drawable/icon_demo"
+                app:backgroundTint="@color/grid_home" />
+
+            <!-- Floating Button 2 - Self Check -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contentDescription="Self Check"
+                android:src="@drawable/icon_demo"
+                app:backgroundTint="@color/grid_home" />
+
+            <!-- Floating Button 3 - Spending Score -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contentDescription="Spending Score"
+                android:src="@drawable/icon_demo"
+                app:backgroundTint="@color/grid_home" />
+
+            <!-- Floating Button 4 - Coming Soon -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fab4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contentDescription="Coming Soon"
+                android:src="@drawable/icon_demo"
+                app:backgroundTint="@color/grid_home"
+                app:layout_column="0"
+                app:layout_row="1" />
+
+            <!-- Floating Button 5 - Coming Soon -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fab5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contentDescription="Coming Soon"
+                android:src="@drawable/icon_demo"
+                app:backgroundTint="@color/grid_home" />
+
+            <!-- Floating Button 6 - Coming Soon -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fab6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contentDescription="Coming Soon"
+                android:src="@drawable/icon_demo"
+                app:backgroundTint="@color/grid_home" />
+
+        </androidx.gridlayout.widget.GridLayout>
+    </androidx.cardview.widget.CardView>
+
 </FrameLayout>

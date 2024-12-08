@@ -10,15 +10,20 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import com.capstone.free.education.data.pref.UserModel
+import com.capstone.free.education.data.pref.dataStore
 import com.capstone.free.education.databinding.ActivityLoginBinding
 import com.capstone.free.education.view.ViewModelFactory
 import com.capstone.free.education.view.main.MainActivity
+import com.capstone.free.education.view.setting.SettingPreferences
+import com.capstone.free.education.view.setting.SettingViewModel
 
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
-        ViewModelFactory.getInstance(this)
+        ViewModelFactory.getInstance(this, SettingPreferences.getInstance(this.dataStore))
     }
     private lateinit var binding: ActivityLoginBinding
 
@@ -26,6 +31,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val settingViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this, SettingPreferences.getInstance(applicationContext.dataStore)))
+            .get(SettingViewModel::class.java)
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive ->
+            AppCompatDelegate.setDefaultNightMode(
+                if (isDarkModeActive) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            )
+        }
 
         setupView()
         setupAction()

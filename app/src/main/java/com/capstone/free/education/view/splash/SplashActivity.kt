@@ -15,6 +15,9 @@ import com.capstone.free.education.view.main.MainActivity
 import com.capstone.free.education.view.welcome.WelcomeActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.capstone.free.education.view.setting.SettingPreferences
+import com.capstone.free.education.di.Injection
+import com.capstone.free.education.data.pref.dataStore
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -28,16 +31,20 @@ class SplashActivity : AppCompatActivity() {
 
         // Animasi fade-in untuk logo
         ObjectAnimator.ofFloat(logo, "alpha", 0f, 1f).apply {
-            duration = 2000 // 2 detik
+            duration = 1000 // 1 detik
         }.start()
 
+        // Inisialisasi ViewModelFactory dengan repository dan setting
+        val settingPreferences = SettingPreferences.getInstance(applicationContext.dataStore)
+        val repository = Injection.provideRepository(this)
+        val factory = ViewModelFactory.getInstance(this, settingPreferences)
+
         // Inisialisasi ViewModel
-        val factory = ViewModelFactory.getInstance(this)
         val viewModel: SplashViewModel by viewModels { factory }
 
         // Delay 10 detik sebelum memeriksa token
         lifecycleScope.launch {
-            delay(10000) // 10 detik
+            delay(2000) // 2 detik
             viewModel.getUserToken().collect { token ->
                 if (token.isNullOrEmpty()) {
                     // Jika token kosong atau null, arahkan ke WelcomeActivity
@@ -54,3 +61,4 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 }
+

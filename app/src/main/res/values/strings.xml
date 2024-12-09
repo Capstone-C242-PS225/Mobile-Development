@@ -31,4 +31,10 @@
     <string name="self_check_fragment">Self Check</string> <!-- Menambahkan string dari branch lain -->
     <string name="spending_score_fragment">Spending Score</string> <!-- Menambahkan string dari branch lain -->
     <string name="coming_soon">Coming Soon</string> <!-- Menambahkan string dari branch lain -->
+    <string name="home_dicoding_events">Learning Material</string>
+    <string name="favorite">Favorite</string>
+    <string name="button_event">Start Learning</string>
+    <string name="finished">Upcoming Material</string>
+    <string name="event">Learning Material</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.capstone.free.education.view.welcome
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -15,12 +16,21 @@ import com.capstone.free.education.view.setting.SettingPreferences
 import com.capstone.free.education.view.setting.SettingViewModel
 import com.capstone.free.education.view.signup.SignupActivity
 import com.capstone.free.education.data.pref.dataStore
+import com.capstone.free.education.view.main.MainActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPref = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+
+        if (isLoggedIn) {
+            // Jika sudah login, langsung ke MainActivity
+            startActivity(Intent(this, MainActivity::class.java))
+            finish() // Tutup WelcomeActivity
+        }
         val settingViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this, SettingPreferences.getInstance(applicationContext.dataStore)))
             .get(SettingViewModel::class.java)
 

@@ -1,8 +1,10 @@
 package com.capstone.free.education.view.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -16,6 +18,7 @@ import com.capstone.free.education.databinding.ActivityMainBinding
 import com.capstone.free.education.view.ViewModelFactory
 import com.capstone.free.education.view.home.HomeFragment
 import com.capstone.free.education.view.konsultasi.KonsultasiFragment
+import com.capstone.free.education.view.login.LoginActivity
 import com.capstone.free.education.view.profile.ProfileFragment
 import com.capstone.free.education.view.setting.SettingFragment
 import com.capstone.free.education.view.setting.SettingPreferences
@@ -23,9 +26,13 @@ import com.capstone.free.education.view.setting.SettingViewModel
 import com.capstone.free.education.view.spendingscore.spendingscoreFragment
 import com.capstone.free.education.view.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
     private val viewModel: MainViewModel by viewModels {
         ViewModelFactory.getInstance(applicationContext, SettingPreferences.getInstance(applicationContext.dataStore))
     }
@@ -75,16 +82,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.getSession().observe(this) { user ->
-            if (!user.isLogin) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
+            val sharedPref = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+            val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+
+            if (!isLoggedIn) {
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
+
         }
+
+
 
         setupView()
     }
 
     private fun loadFragment(fragment: Fragment) {
+        Log.d("FragmentLoad", "Loading fragment: ${fragment.javaClass.simpleName}")
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()

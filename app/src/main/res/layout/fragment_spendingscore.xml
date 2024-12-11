@@ -1,66 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".view.spendingscore.spendingscoreFragment">
 
+    <!-- TextView untuk menampilkan nama pengguna -->
     <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:text="Nama Pengguna"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"/>
 
-<!--    <TextView-->
-<!--        android:id="@+id/profilName"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/name"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:gravity="center"-->
-<!--        android:textColor="#000000"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintMarginTop="32dp" />-->
+    <!-- Label untuk Pendapatan -->
+    <TextView
+        android:id="@+id/tvIncomeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pendapatan :"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/CityInputLayout"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/profilName"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintMarginTop="16dp"-->
-<!--        app:layout_constraintMarginStart="16dp"-->
-<!--        app:layout_constraintMarginEnd="16dp">-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/CityEditText"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="City"-->
-<!--            android:inputType="text"-->
-<!--            android:textColorHint="#9E9E9E" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <!-- Input Pendapatan -->
+    <EditText
+        android:id="@+id/etIncome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Pendapatan"
+        android:inputType="numberDecimal"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:background="@android:drawable/edit_text"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvIncomeLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#E0E0E0"/>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/incomeInputLayout"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/CityInputLayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintMarginTop="16dp"-->
-<!--        app:layout_constraintMarginStart="16dp"-->
-<!--        app:layout_constraintMarginEnd="16dp">-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/incomeEditText"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="Income"-->
-<!--            android:inputType="numberDecimal"-->
-<!--            android:textColorHint="#9E9E9E" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <!-- Label untuk Asal Daerah -->
+    <TextView
+        android:id="@+id/tvAreaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Asal Daerah :"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/etIncome"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Input Nama Daerah -->
+    <EditText
+        android:id="@+id/etArea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Nama Daerah"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:background="@android:drawable/edit_text"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvAreaLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#E0E0E0"/>
+
+    <!-- Tombol Submit -->
+    <Button
+        android:id="@+id/btnSubmitSpending"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:backgroundTint="#6200EE"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/etArea"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Hasil Analisis Keuangan -->
+    <TextView
+        android:id="@+id/tvResultSpending"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Hasil Analisis: -"
+        android:textSize="16sp"
+        android:textColor="#4CAF50"
+        android:layout_marginTop="32dp"
+        android:padding="16dp"
+        android:background="@drawable/rounded_border"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/btnSubmitSpending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

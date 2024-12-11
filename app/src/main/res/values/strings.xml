@@ -17,20 +17,20 @@
     <string name="send_message_text">Kirim Pesan</string>
     <string name="switch_user_text">Beralih Pengguna</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="profilName" type="id">nama</string>
-    <string name="CityInputLayout" type="id">city</string>
-    <string name="CityEditText" type="id">cityInput</string>
-    <string name="incomeInputLayout" type="id">income</string>
-    <string name="incomeEditText" type="id">incomeInput</string>
+    <string name="profilName">nama</string>
+    <string name="CityInputLayout">city</string>
+    <string name="CityEditText">cityInput</string>
+    <string name="incomeInputLayout">income</string>
+    <string name="incomeEditText">incomeInput</string>
     <string name="title_activity_coba">cobaActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="dark_mode">Dark Mode</string> <!-- Menjaga string dark_mode dari HEAD -->
-    <string name="materi_fragment">Materi</string> <!-- Menambahkan string dari branch lain -->
-    <string name="self_check_fragment">Self Check</string> <!-- Menambahkan string dari branch lain -->
-    <string name="spending_score_fragment">Spending Score</string> <!-- Menambahkan string dari branch lain -->
-    <string name="coming_soon">Coming Soon</string> <!-- Menambahkan string dari branch lain -->
+    <string name="dark_mode">Dark Mode</string>
+    <string name="materi_fragment">Materi</string>
+    <string name="self_check_fragment">Self Check</string>
+    <string name="spending_score_fragment">Spending Score</string>
+    <string name="coming_soon">Coming Soon</string>
     <string name="home_dicoding_events">Learning Material</string>
     <string name="favorite">Favorite</string>
     <string name="button_event">Start Learning</string>
@@ -38,5 +38,13 @@
     <string name="event">Learning Material</string>
     <string name="setting">Setting</string>
     <string name="enable_dark_mode">Dark Mode</string>
-
+    <string name="your_web_client_id">167418343333-hpdb8i1bi03t6j235k2ufstdur1ap9of.apps.googleusercontent.com</string>
+    <string name="tvName">nama user</string>
+    <string name="etIncome">pendapatan</string>
+    <string name="etArea">daerah</string>
+    <string name="btnSubmit">submit spending</string>
+    <string name="tvIncomeLabel">pendapatan</string>
+    <string name="tvAreaLabel">Daerah</string>
+    <string name="btnSubmitSpending">button spending</string>
+    <string name="tvResultSpending">hasil spending</string>
 </resources>

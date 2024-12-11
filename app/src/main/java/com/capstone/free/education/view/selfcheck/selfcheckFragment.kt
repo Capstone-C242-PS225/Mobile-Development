@@ -1,60 +1,117 @@
 package com.capstone.free.education.view.selfcheck
 
 import android.os.Bundle
+import android.telecom.Call
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.capstone.free.education.R
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.capstone.free.education.data.remote.retrofit.ApiService
+import com.capstone.free.education.data.pref.SelfCheckResponse
+import com.capstone.free.education.data.remote.retrofit.ApiResponse
+import com.capstone.free.education.databinding.FragmentSelfcheckBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [selfcheckFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class selfcheckFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: SelfCheckAdapter
+    private val questions = listOf(
+        "Apakah anda merupakan pengguna baru judi online?",
+        "Berapa rata-rata uang yang telah anda gunakan untuk bermain judi online?",
+        "Berapa jumlah uang yang sudah anda keluarkan dari judi online?",
+        "Berapa uang yang anda dapat dari bermain judi online?",
+        "Apakah anda mengalami keuntungan atau kerugian selama bermain judi online?"
+    )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var userResponse = SelfCheckResponse()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_selfcheck, container, false)
-    }
+        val binding = FragmentSelfcheckBinding.inflate(inflater, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment selfcheckFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            selfcheckFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        recyclerView = binding.rvChatHistory
+        adapter = SelfCheckAdapter(questions) { answer ->
+            // Simpan jawaban berdasarkan urutan pertanyaan
+            when (questions.indexOf(answer)) {
+                0 -> userResponse.newRegister = answer == "ya"
+                1 -> userResponse.transactionAmount = answer.toDoubleOrNull() ?: 0.0
+                2 -> userResponse.userTotalCashout = answer.toDoubleOrNull() ?: 0.0
+                3 -> userResponse.companyTotalCashout = answer.toDoubleOrNull() ?: 0.0
+                4 -> {
+                    userResponse.profitOrLoss = answer
+                    // Analisis apakah untung atau rugi
                 }
             }
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+
+        // Tombol kirim jawaban
+//        binding.btnSend.setOnClickListener {
+//            // Kirim data ke API jika semua pertanyaan sudah dijawab
+//            if (userResponse.isComplete()) {
+//                sendToApi(userResponse)
+//            } else {
+//                Toast.makeText(context, "Harap jawab semua pertanyaan!", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+
+        return binding.root
     }
+
+    // Mengecek apakah semua pertanyaan sudah dijawab
+    private fun SelfCheckResponse.isComplete(): Boolean {
+        return newRegister != null && transactionAmount != 0.0 && userTotalCashout != 0.0 &&
+                companyTotalCashout != 0.0 && profitOrLoss.isNotEmpty()
+    }
+
+    // Kirim data ke API
+    // Kirim data ke API
+//    private fun sendToApi(response: SelfCheckResponse) {
+//        // Menggunakan Gson untuk mengubah model menjadi JSON
+//        val jsonResponse = Gson().toJson(response)
+//
+//        // Contoh kode untuk mengirim jsonResponse ke API menggunakan Retrofit
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl("https://api.example.com/")  // Ganti dengan URL API yang sesuai
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//
+//        val apiService = retrofit.create(ApiService::class.java)
+//        val call = apiService.sendSelfCheckData(jsonResponse)
+//
+//        call.enqueue(object : Callback<ApiResponse> {
+//            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+//                if (response.isSuccessful) {
+//                    // Tanggapan sukses, tampilkan hasil analisis
+//                    val result = response.body()
+//                    showResult(result)
+//                } else {
+//                    // Tanggapan gagal
+//                    Toast.makeText(context, "Gagal mengirim data!", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+//                // Gagal melakukan permintaan ke API
+//                Toast.makeText(context, "Terjadi kesalahan: ${t.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
+
+    // Fungsi untuk menampilkan hasil analisis dari API
+    private fun showResult(result: ApiResponse?) {
+        // Tampilkan hasil analisis di UI (misalnya, menggunakan dialog atau fragment baru)
+        if (result != null) {
+            // Misalnya, tampilkan hasil analisis dalam sebuah toast
+            Toast.makeText(context, "Hasil Analisis: ${result.analysis}", Toast.LENGTH_LONG).show()
+        }
+    }
+
 }

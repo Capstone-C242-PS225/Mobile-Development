@@ -1,95 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.home.HomeFragment">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="397dp"
-        android:layout_height="507dp"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/grid_home"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+    <!-- Container untuk header atau bagian atas -->
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_view2" />
 
-        <androidx.gridlayout.widget.GridLayout
-            android:id="@+id/gridLayout"
-            android:layout_width="432dp"
-            android:layout_height="307dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:alignmentMode="alignMargins"
-            android:columnCount="3"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:paddingBottom="32dp"
-            android:rowCount="2">
+    <!-- GridLayout untuk menampilkan CardView -->
 
-            <!-- Floating Button 1 - Materi -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/fab1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="Materi"
-                android:src="@drawable/icon_demo"
-                app:backgroundTint="@color/grid_home" />
+    <GridLayout
+        android:id="@+id/grid_layout"
+        android:layout_width="410dp"
+        android:layout_height="639dp"
+        android:layout_below="@id/top_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-53dp"
+        android:layout_marginEnd="-21dp"
+        android:columnCount="2"
+        android:padding="16dp"
+        android:rowCount="2">
 
-            <!-- Floating Button 2 - Self Check -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/fab2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="Self Check"
-                android:src="@drawable/icon_demo"
-                app:backgroundTint="@color/grid_home" />
+        <!-- CardView untuk Event Home -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_material"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
 
-            <!-- Floating Button 3 - Spending Score -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/fab3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="Spending Score"
-                android:src="@drawable/icon_demo"
-                app:backgroundTint="@color/grid_home" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <!-- Floating Button 4 - Coming Soon -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/fab4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="Coming Soon"
-                android:src="@drawable/icon_demo"
-                app:backgroundTint="@color/grid_home"
-                app:layout_column="0"
-                app:layout_row="1" />
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_material" />
 
-            <!-- Floating Button 5 - Coming Soon -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/fab5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="Coming Soon"
-                android:src="@drawable/icon_demo"
-                app:backgroundTint="@color/grid_home" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Learning"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <!-- Floating Button 6 - Coming Soon -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/fab6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="Coming Soon"
-                android:src="@drawable/icon_demo"
-                app:backgroundTint="@color/grid_home" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        </androidx.gridlayout.widget.GridLayout>
-    </androidx.cardview.widget.CardView>
+        <!-- CardView untuk Self Check -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_self_check"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
 
-</FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_sc" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Self Check"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CardView untuk Spending Score -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_spending_score"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_ss" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Spending Score"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CardView untuk Report -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_report"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_report" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Report"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CardView untuk Consultation -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_consultation"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_consultation" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Consultation"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CardView untuk Material -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_setting"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_setting" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Setting"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+</RelativeLayout>

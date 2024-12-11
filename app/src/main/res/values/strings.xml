@@ -36,5 +36,7 @@
     <string name="button_event">Start Learning</string>
     <string name="finished">Upcoming Material</string>
     <string name="event">Learning Material</string>
+    <string name="setting">Setting</string>
+    <string name="enable_dark_mode">Dark Mode</string>
 
 </resources>

@@ -1,18 +1,19 @@
 package com.capstone.free.education.view.selfcheck
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.free.education.R
-import com.capstone.free.education.data.pref.Question
 import com.google.android.material.textfield.TextInputEditText
 
-class SelfCheckAdapter (
+class selfcheckAdapter(
     private val questions: List<String>,
-    private val onAnswerSubmit: (String) -> Unit
-) : RecyclerView.Adapter<SelfCheckAdapter.SelfCheckViewHolder>() {
+    private val onAnswerSubmit: (String, Int) -> Unit
+) : RecyclerView.Adapter<selfcheckAdapter.SelfCheckViewHolder>() {
 
     class SelfCheckViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val questionTextView: TextView = view.findViewById(R.id.tv_question)
@@ -29,11 +30,18 @@ class SelfCheckAdapter (
         val question = questions[position]
         holder.questionTextView.text = question
 
-        holder.answerEditText.setOnFocusChangeListener { _, _ ->
-            val answer = holder.answerEditText.text.toString()
-            onAnswerSubmit(answer)
-        }
+        // Tambahkan TextWatcher untuk menangkap perubahan teks
+        holder.answerEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val answer = s.toString()
+                onAnswerSubmit(answer, position)  // Menyimpan jawaban berdasarkan posisi
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     override fun getItemCount(): Int = questions.size
 }
+

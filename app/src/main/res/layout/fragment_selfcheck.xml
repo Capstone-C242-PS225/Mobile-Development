@@ -4,26 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.selfcheck.selfcheckFragment">
+    tools:context=".view.selfcheck.SelfcheckFragment">
 
     <!-- RecyclerView untuk menampilkan pertanyaan dan jawaban -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chatHistory"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="410dp"
+        android:layout_height="517dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/til_inputTextLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Input untuk menjawab pertanyaan -->
+    <!-- Input untuk jawaban -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_inputTextLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@id/btn_send"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_chatHistory">
 
@@ -31,9 +31,8 @@
             android:id="@+id/tiet_inputTextEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:hint="Enter your answer here"
             android:inputType="textCapSentences" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Tombol Kirim Jawaban -->
@@ -42,8 +41,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginTop="89dp"
         android:text="Send"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/til_inputTextLayout"
-        app:layout_constraintTop_toTopOf="@id/til_inputTextLayout" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_inputTextLayout"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

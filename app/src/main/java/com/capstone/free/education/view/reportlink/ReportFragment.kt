@@ -8,10 +8,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.capstone.free.education.R
+import com.capstone.free.education.data.remote.response.ReportRequest
+import com.capstone.free.education.data.remote.retrofit.ApiConfig
+import kotlinx.coroutines.launch
 
 
 class ReportFragment : Fragment(R.layout.fragment_report) {
+
+    private val apiService = ApiConfig.getApiService() // Inisialisasi ApiService dengan Retrofit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,8 +46,20 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
     }
 
     private fun sendDataToServer(input: String) {
-        // Logika pengiriman ke server (simulasi)
-        // Bisa diintegrasikan dengan retrofit, volley, atau library lain
-        println("Mengirim data ke server: $input")
+        lifecycleScope.launch {
+            try {
+                val response = apiService.reportLink(ReportRequest(input))
+                if (response.isSuccessful) {
+                    // Berhasil
+                    Toast.makeText(requireContext(), "Link berhasil dilaporkan!", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Gagal
+                    Toast.makeText(requireContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                // Tangani error
+                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

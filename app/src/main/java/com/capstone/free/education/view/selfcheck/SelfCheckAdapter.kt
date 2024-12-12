@@ -8,31 +8,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstone.free.education.R
 import com.google.android.material.textfield.TextInputEditText
 
-class SelfCheckAdapter (
+class SelfCheckAdapter(
     private val questions: List<String>,
-    private val onAnswerSubmit: (String) -> Unit
-) : RecyclerView.Adapter<SelfCheckAdapter.SelfCheckViewHolder>() {
+    private val onAnswerSelected: (String) -> Unit
+) : RecyclerView.Adapter<SelfCheckAdapter.QuestionViewHolder>() {
 
-    class SelfCheckViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val questionTextView: TextView = view.findViewById(R.id.tv_question)
-        val answerEditText: TextInputEditText = view.findViewById(R.id.tiet_inputTextEditText)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelfCheckViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_question_answer, parent, false)
-        return SelfCheckViewHolder(view)
+            .inflate(android.R.layout.simple_list_item_1, parent, false)
+        return QuestionViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SelfCheckViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val question = questions[position]
-        holder.questionTextView.text = question
-
-        holder.answerEditText.setOnFocusChangeListener { _, _ ->
-            val answer = holder.answerEditText.text.toString()
-            onAnswerSubmit(answer)
-        }
+        holder.bind(question)
     }
 
     override fun getItemCount(): Int = questions.size
+
+    inner class QuestionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val textView: TextView = view.findViewById(android.R.id.text1)
+
+        fun bind(question: String) {
+            textView.text = question
+            itemView.setOnClickListener {
+                onAnswerSelected(question)  // Trigger answer selection
+            }
+        }
+    }
 }

@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +23,14 @@ import androidx.credentials.exceptions.GetCredentialException
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.capstone.free.education.R
+import com.capstone.free.education.data.remote.response.LoginRequest
+import com.capstone.free.education.data.remote.response.LoginResponse
 import com.capstone.free.education.data.pref.UserModel
+import com.capstone.free.education.data.pref.UserPreference
 import com.capstone.free.education.data.pref.dataStore
+import com.capstone.free.education.data.remote.repo.UserRepository
+import com.capstone.free.education.data.remote.retrofit.ApiConfig
+import com.capstone.free.education.data.remote.retrofit.ApiService
 import com.capstone.free.education.databinding.ActivityLoginBinding
 import com.capstone.free.education.view.ViewModelFactory
 import com.capstone.free.education.view.main.MainActivity
@@ -39,6 +46,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
@@ -93,10 +103,48 @@ class LoginActivity : AppCompatActivity() {
             }
 
             // Simpan sesi manual ke SharedPreferences
-            val sharedPref = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
-            with(sharedPref.edit()) {
-                putBoolean("isLoggedIn", true)
-                apply()
+            val loginRequest = LoginRequest(email, password)
+
+            // Kirim request login menggunakan Retrofit
+            lifecycleScope.launch {
+                try {
+                    val response = ApiConfig.getApiService().login(loginRequest)
+
+                    if (response.isSuccessful) {
+                        // Login berhasil
+                        val loginResponse = response.body()
+                        loginResponse?.let {
+                            // Simpan token dan status login
+                            val sharedPref = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+                            with(sharedPref.edit()) {
+                                putBoolean("isLoggedIn", true)
+                                putString("token", it.token) // Simpan token jika ada
+                                apply()
+                            }
+
+                            // Arahkan ke MainActivity
+                            AlertDialog.Builder(this@LoginActivity).apply {
+                                setTitle("Yeah!")
+                                setMessage("Anda berhasil login.")
+                                setPositiveButton("Lanjut") { _, _ ->
+                                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                    finish()
+                                }
+                                create()
+                                show()
+                            }
+                        }
+                    } else {
+                        // Login gagal
+                        val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                        Toast.makeText(this@LoginActivity, "Login gagal: $errorMessage", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    // Tangkap error jaringan
+                    e.printStackTrace()
+                    Log.e("Login", "Error: ${e.message}")
+                    Toast.makeText(this@LoginActivity, "Koneksi gagal: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
 
             // Jika validasi lolos, lanjutkan proses login
@@ -228,3 +276,4 @@ class LoginActivity : AppCompatActivity() {
         private const val TAG = "LoginActivity"
     }
 }
+

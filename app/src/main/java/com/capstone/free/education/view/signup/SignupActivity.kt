@@ -1,14 +1,27 @@
 package com.capstone.free.education.view.signup
 
+import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.util.Patterns
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.capstone.free.education.data.remote.response.RegisterRequest
+import com.capstone.free.education.data.remote.response.RegisterResponse
+import com.capstone.free.education.data.remote.retrofit.ApiConfig
 import com.capstone.free.education.databinding.ActivitySignupBinding
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -18,27 +31,27 @@ class SignupActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupView()
         setupAction()
-    }
-
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
     }
 
     private fun setupAction() {
         binding.signupButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
+            val username = binding.nameEditText.text.toString().trim()
+            val email = binding.emailEditText.text.toString().trim()
+            val password = binding.passwordEditText.text.toString().trim()
+
+            // Validasi data sebelum dikirim
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Semua data harus diisi", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Validasi email dengan log tambahan
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.emailEditText.error = "Email tidak valid"
+                Log.e("Signup Validation", "Email tidak valid: $email")
+                return@setOnClickListener
+            }
 
             // Validasi password minimal 8 karakter
             if (password.length < 8) {
@@ -46,32 +59,36 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Jika validasi lolos, tampilkan dialog sukses
-            AlertDialog.Builder(this).apply {
-                setTitle("Registrasi Berhasil")
-                setMessage("Akun dengan email $email berhasil dibuat. Yuk, login!")
-                setPositiveButton("OK") { _, _ ->
-                    finish()
+            // Log input yang akan dikirim
+            Log.d("Signup Input", "Email: $email, Username: $username, Password: $password")
+
+            val registerRequest = RegisterRequest(email = email, username = username, password = password)
+
+            lifecycleScope.launch {
+                try {
+                    val response = ApiConfig.getApiService().register(registerRequest)
+                    if (response.isSuccessful) {
+                        // Berhasil
+                        val body = response.body()
+                        Log.d("Signup Success", "Response: $body")
+                        Toast.makeText(this@SignupActivity, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Gagal (contoh: HTTP 400, 500)
+                        val errorBody = response.errorBody()?.string()
+                        Log.e("Signup Error", "Error Body: $errorBody")
+                        Toast.makeText(this@SignupActivity, "Registrasi gagal: $errorBody", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    // Tangkap error jaringan
+                    e.printStackTrace()
+                    Log.e("Signup Exception", "Error: ${e.message}")
+                    Toast.makeText(this@SignupActivity, "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
-                create()
-                show()
             }
         }
-
-        // Tambahkan TextWatcher untuk validasi real-time
-        binding.passwordEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.length < 8) {
-                    binding.passwordEditText.error = "Password tidak boleh kurang dari 8 karakter"
-                } else {
-                    binding.passwordEditText.error = null
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
     }
-
 }
+
+
+
+

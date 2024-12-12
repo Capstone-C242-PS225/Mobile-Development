@@ -11,7 +11,11 @@ object ApiConfig {
         val client = OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .addHeader("x-api-key", "QmFyYVN1a2FTYWdpcmlJenVtaTEzMDhkYXJpRXJvbWFuZ2FTZW5zZWk") // Tambahkan API key Anda
+                    .addHeader(
+                        "x-api-key",
+                        "QmFyYVN1a2FTYWdpcmlJenVtaTEzMDhkYXJpRXJvbWFuZ2FTZW5zZWk"
+                    ) // Tambahkan API key Anda
+
                     .addHeader("Content-Type", "application/json") // Tambahkan content type
                     .build()
                 chain.proceed(request)
@@ -19,11 +23,14 @@ object ApiConfig {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api-cc-465803765985.asia-southeast2.run.app/") // Ganti dengan URL API Anda
-            .addConverterFactory(GsonConverterFactory.create())
+
+        .baseUrl("https://api-cc-465803765985.asia-southeast2.run.app/") // Ganti dengan URL API Anda
+        .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
 
         return retrofit.create(ApiService::class.java)
     }
 }
+
+

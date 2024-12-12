@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_spending -> {
-                    loadFragment(KonsultasiFragment())
+                    loadFragment(spendingscoreFragment())
                     true
                 }
                 R.id.nav_setting -> {

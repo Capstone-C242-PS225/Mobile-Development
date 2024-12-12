@@ -10,9 +10,10 @@ import com.capstone.free.education.R
 import com.capstone.free.education.view.materi.MateriFragment
 import com.capstone.free.education.view.konsultasi.KonsultasiFragment
 import com.capstone.free.education.view.reportlink.ReportFragment
-import com.capstone.free.education.view.selfcheck.SelfCheckFragment
+import com.capstone.free.education.view.selfcheck.selfcheckFragment
 import com.capstone.free.education.view.setting.SettingFragment
 import com.capstone.free.education.view.spendingscore.spendingscoreFragment
+
 
 class HomeFragment : Fragment() {
 
@@ -31,7 +32,7 @@ class HomeFragment : Fragment() {
             navigateToFragment(SettingFragment())
         }
         view.findViewById<View>(R.id.card_self_check).setOnClickListener {
-            navigateToFragment(SelfCheckFragment())
+            navigateToFragment(selfcheckFragment())
         }
         view.findViewById<View>(R.id.card_spending_score).setOnClickListener {
             navigateToFragment(spendingscoreFragment())
@@ -41,6 +42,10 @@ class HomeFragment : Fragment() {
         }
         view.findViewById<View>(R.id.card_consultation).setOnClickListener {
             navigateToFragment(KonsultasiFragment())
+        }
+
+        view.findViewById<View>(R.id.card_material).setOnClickListener {
+            navigateToFragment(MateriFragment())
         }
     }
 

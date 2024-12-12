@@ -13,7 +13,7 @@ import com.capstone.free.education.view.reportlink.ReportFragment
 import com.capstone.free.education.view.selfcheck.selfcheckFragment
 import com.capstone.free.education.view.setting.SettingFragment
 import com.capstone.free.education.view.spendingscore.spendingscoreFragment
-import com.dicoding.mysubmission.ui.home.EventHomeFragment
+
 
 class HomeFragment : Fragment() {
 
@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
             navigateToFragment(KonsultasiFragment())
         }
         view.findViewById<View>(R.id.card_material).setOnClickListener {
-            navigateToFragment(EventHomeFragment())
+            navigateToFragment(MateriFragment())
         }
     }
 

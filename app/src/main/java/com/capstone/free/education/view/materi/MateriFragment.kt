@@ -1,60 +1,61 @@
 package com.capstone.free.education.view.materi
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.capstone.free.education.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.free.education.databinding.FragmentMateriBinding
+import com.capstone.free.education.data.remote.retrofit.ApiConfig
+import com.capstone.free.education.data.remote.response.MateriResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MateriFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MateriFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentMateriBinding
+    private lateinit var materiAdapter: MateriAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_materi, container, false)
+        binding = FragmentMateriBinding.inflate(inflater, container, false)
+
+        // Set up RecyclerView
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        materiAdapter = MateriAdapter(emptyList())
+        binding.recyclerView.adapter = materiAdapter
+
+        // Fetch data from API
+        fetchMateri()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MateriFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MateriFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchMateri() {
+        val call = ApiConfig.getApiService().getMateri()
+        call.enqueue(object : Callback<MateriResponse> {
+            override fun onResponse(call: Call<MateriResponse>, response: Response<MateriResponse>) {
+                if (response.isSuccessful) {
+                    val materiResponse = response.body()
+                    if (materiResponse != null && !materiResponse.error) {
+                        materiAdapter = MateriAdapter(materiResponse.data)
+                        binding.recyclerView.adapter = materiAdapter
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to fetch materi", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Error: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            override fun onFailure(call: Call<MateriResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

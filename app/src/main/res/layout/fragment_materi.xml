@@ -1,41 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_materi.xml -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.materi.MateriFragment">
 
+    <!-- Title or Header for the Fragment -->
     <TextView
-        android:id="@+id/tv_report"
-        android:layout_width="match_parent"
+        android:id="@+id/tvMateriTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/report_fragment"
-        android:textColor="@color/gray"
-        android:textSize="25sp"
+        android:text="Materi"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:gravity="center"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/loadingMateri"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+    <!-- RecyclerView to display the list of materials -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMateri"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvMateriTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

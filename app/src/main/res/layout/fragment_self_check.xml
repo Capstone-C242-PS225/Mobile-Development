@@ -17,24 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Input untuk jawaban -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_inputTextLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_chatHistory">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_inputTextEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your answer here"
-            android:inputType="textCapSentences" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <!-- Tombol Kirim Jawaban -->
     <Button
         android:id="@+id/btn_send"

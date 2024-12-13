@@ -13,7 +13,7 @@ object ApiConfig {
                 val request = chain.request().newBuilder()
                     .addHeader(
                         "x-api-key",
-                        "QmFyYVN1a2FTYWdpcmlJenVtaTEzMDhkYXJpRXJvbWFuZ2FTZW5zZWk"
+                        "QmFyYVN1a2FTYWdpcmlJ"
                     ) // Tambahkan API key Anda
 
                     .addHeader("Content-Type", "application/json") // Tambahkan content type

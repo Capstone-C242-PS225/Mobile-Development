@@ -8,12 +8,12 @@
     tools:context=".view.profile.ProfileFragment">
 
     <TextView
-        android:id="@+id/tv_report"
+        android:id="@+id/tv_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/report_fragment"
+        android:text="@string/profile_fragment"
         android:textColor="@color/gray"
         android:textSize="25sp"
         android:textStyle="bold"

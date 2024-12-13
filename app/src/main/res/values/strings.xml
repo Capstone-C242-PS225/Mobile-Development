@@ -57,4 +57,5 @@
     <string name="tvUserCashoutQuestion" >soal3</string>
     <string name="tvCompanyCashoutQuestion" >soal4</string>
     <string name="tvUserBalanceQuestion" >soal5</string>
+    <string name="profile_fragment">Profile</string>
 </resources>

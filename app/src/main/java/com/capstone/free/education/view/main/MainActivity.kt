@@ -89,11 +89,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
-
         }
-
-
-
         setupView()
     }
 

@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
         view.findViewById<View>(R.id.card_consultation).setOnClickListener {
             navigateToFragment(KonsultasiFragment())
         }
-
         view.findViewById<View>(R.id.card_material).setOnClickListener {
             navigateToFragment(MateriFragment())
         }

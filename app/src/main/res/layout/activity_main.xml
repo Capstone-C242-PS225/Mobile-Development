@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".view.main.MainActivity">
 
-    <!-- Guideline atas -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
         android:layout_width="wrap_content"
@@ -15,7 +14,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
-    <!-- Guideline bawah -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
@@ -23,22 +21,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3" />
 
-
-    <!-- Button logout -->
-<!--    <Button-->
-<!--        android:id="@+id/logoutButton"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:backgroundTint="@color/navy"-->
-<!--        android:text="@string/logout"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/nav_view"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/guidelineTop"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!-- BottomNavigationView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"

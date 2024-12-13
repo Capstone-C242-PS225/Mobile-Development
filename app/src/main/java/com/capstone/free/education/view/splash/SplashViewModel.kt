@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 class SplashViewModel(private val repository: UserRepository) : ViewModel() {
 
-    // Mengembalikan LiveData yang berisi token pengguna
     fun getUserToken(): Flow<UserModel> {
         return repository.getSession()
     }

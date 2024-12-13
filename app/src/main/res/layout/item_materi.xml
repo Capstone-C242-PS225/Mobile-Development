@@ -36,6 +36,14 @@
             android:textSize="14sp"
             android:paddingTop="4dp" />
 
+        <TextView
+            android:id="@+id/tvTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Target"
+            android:textSize="14sp"
+            android:paddingTop="4dp" />
+
         <Button
             android:id="@+id/btnLink"
             android:layout_width="wrap_content"

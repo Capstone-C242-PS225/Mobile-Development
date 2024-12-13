@@ -24,35 +24,28 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash) // Layout untuk Splash Screen
+        setContentView(R.layout.activity_splash)
 
-        // Inisialisasi logo
         val logo = findViewById<ImageView>(R.id.splash_logo)
 
-        // Animasi fade-in untuk logo
         ObjectAnimator.ofFloat(logo, "alpha", 0f, 1f).apply {
             duration = 1000 // 1 detik
         }.start()
 
-        // Inisialisasi ViewModelFactory dengan repository dan setting
         val settingPreferences = SettingPreferences.getInstance(applicationContext.dataStore)
         val repository = Injection.provideRepository(this)
         val factory = ViewModelFactory.getInstance(this, settingPreferences)
 
-        // Inisialisasi ViewModel
         val viewModel: SplashViewModel by viewModels { factory }
 
-        // Delay 10 detik sebelum memeriksa token
         lifecycleScope.launch {
-            delay(2000) // 2 detik
+            delay(2000)
             viewModel.getUserToken().collect { token ->
                 if (token.isNullOrEmpty()) {
-                    // Jika token kosong atau null, arahkan ke WelcomeActivity
                     val intent = Intent(this@SplashActivity, WelcomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
-                    // Jika token tersedia, arahkan ke MainActivity
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()

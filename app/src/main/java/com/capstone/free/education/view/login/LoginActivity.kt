@@ -96,33 +96,29 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            // Validasi password
             if (password.length < 8) {
                 binding.passwordEditText.error = "Password tidak boleh kurang dari 8 karakter"
                 return@setOnClickListener
             }
 
-            // Simpan sesi manual ke SharedPreferences
             val loginRequest = LoginRequest(email, password)
 
-            // Kirim request login menggunakan Retrofit
             lifecycleScope.launch {
                 try {
                     val response = ApiConfig.getApiService().login(loginRequest)
 
                     if (response.isSuccessful) {
-                        // Login berhasil
+
                         val loginResponse = response.body()
                         loginResponse?.let {
-                            // Simpan token dan status login
+
                             val sharedPref = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
                             with(sharedPref.edit()) {
                                 putBoolean("isLoggedIn", true)
-                                putString("token", it.token) // Simpan token jika ada
+                                putString("token", it.token)
                                 apply()
                             }
 
-                            // Arahkan ke MainActivity
                             AlertDialog.Builder(this@LoginActivity).apply {
                                 setTitle("Yeah!")
                                 setMessage("Anda berhasil login.")
@@ -135,19 +131,17 @@ class LoginActivity : AppCompatActivity() {
                             }
                         }
                     } else {
-                        // Login gagal
                         val errorMessage = response.errorBody()?.string() ?: "Unknown error"
                         Toast.makeText(this@LoginActivity, "Login gagal: $errorMessage", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
-                    // Tangkap error jaringan
+
                     e.printStackTrace()
                     Log.e("Login", "Error: ${e.message}")
                     Toast.makeText(this@LoginActivity, "Koneksi gagal: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            // Jika validasi lolos, lanjutkan proses login
             viewModel.saveSession(UserModel(email, "sample_token"))
             AlertDialog.Builder(this).apply {
                 setTitle("Yeah!")
@@ -156,15 +150,13 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(context, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
-                    finish() // Pastikan LoginActivity selesai
+                    finish()
                 }
                 create()
                 show()
             }
         }
 
-
-        // Tambahkan TextWatcher untuk menampilkan error saat password diubah
         binding.passwordEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -179,19 +171,18 @@ class LoginActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Tombol Google Sign-In
         binding.signInButton.setOnClickListener {
             signIn()
         }
     }
 
     private fun signIn() {
-        val credentialManager = CredentialManager.create(this) //import from androidx.CredentialManager
+        val credentialManager = CredentialManager.create(this)
         val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
-            .setServerClientId(getString(R.string.your_web_client_id)) // Gunakan client ID dari Firebase
+            .setServerClientId(getString(R.string.your_web_client_id))
             .build()
-        val request = GetCredentialRequest.Builder() //import from androidx.CredentialManager
+        val request = GetCredentialRequest.Builder()
             .addCredentialOption(googleIdOption)
             .build()
 
@@ -243,16 +234,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            // Simpan status login ke SharedPreferences
             val sharedPref = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
             with(sharedPref.edit()) {
                 putBoolean("isLoggedIn", true)
                 apply()
             }
 
-            // Arahkan ke MainActivity
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-            finish() // Tutup LoginActivity
+            finish()
         } else {
             Log.e("UpdateUI", "User is null")
         }
@@ -265,7 +254,6 @@ class LoginActivity : AppCompatActivity() {
         val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
 
         if (isLoggedIn) {
-            // Jika sudah login, langsung ke MainActivity
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             finish() // Tutup LoginActivity
         }

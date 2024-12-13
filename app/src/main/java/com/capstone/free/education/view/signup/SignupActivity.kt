@@ -40,26 +40,22 @@ class SignupActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
 
-            // Validasi data sebelum dikirim
             if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Semua data harus diisi", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Validasi email dengan log tambahan
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.emailEditText.error = "Email tidak valid"
                 Log.e("Signup Validation", "Email tidak valid: $email")
                 return@setOnClickListener
             }
 
-            // Validasi password minimal 8 karakter
             if (password.length < 8) {
                 binding.passwordEditText.error = "Password tidak boleh kurang dari 8 karakter"
                 return@setOnClickListener
             }
 
-            // Log input yang akan dikirim
             Log.d("Signup Input", "Email: $email, Username: $username, Password: $password")
 
             val registerRequest = RegisterRequest(email = email, username = username, password = password)
@@ -68,18 +64,15 @@ class SignupActivity : AppCompatActivity() {
                 try {
                     val response = ApiConfig.getApiService().register(registerRequest)
                     if (response.isSuccessful) {
-                        // Berhasil
                         val body = response.body()
                         Log.d("Signup Success", "Response: $body")
                         Toast.makeText(this@SignupActivity, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                     } else {
-                        // Gagal (contoh: HTTP 400, 500)
                         val errorBody = response.errorBody()?.string()
                         Log.e("Signup Error", "Error Body: $errorBody")
                         Toast.makeText(this@SignupActivity, "Registrasi gagal: $errorBody", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
-                    // Tangkap error jaringan
                     e.printStackTrace()
                     Log.e("Signup Exception", "Error: ${e.message}")
                     Toast.makeText(this@SignupActivity, "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()

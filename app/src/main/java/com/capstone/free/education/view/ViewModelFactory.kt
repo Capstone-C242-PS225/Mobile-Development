@@ -27,7 +27,7 @@ class ViewModelFactory(private val repository: UserRepository, private val setti
                 SettingViewModel(setting) as T
             }
             modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
-                SplashViewModel(repository) as T  // Menambahkan case untuk SplashViewModel
+                SplashViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

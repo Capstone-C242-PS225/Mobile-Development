@@ -27,7 +27,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Menghubungkan CardView dari XML ke fragment terkait
         view.findViewById<View>(R.id.card_setting).setOnClickListener {
             navigateToFragment(SettingFragment())
         }
@@ -50,8 +49,8 @@ class HomeFragment : Fragment() {
 
     private fun navigateToFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment) // Ganti dengan ID container di layout utama
-            .addToBackStack(null) // Tambahkan ke back stack untuk navigasi kembali
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
     }

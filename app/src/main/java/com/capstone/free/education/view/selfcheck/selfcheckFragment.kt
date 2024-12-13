@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.free.education.R
-import com.capstone.free.education.data.pref.SelfCheckResponse
 import com.capstone.free.education.data.remote.response.AskPredictRequest
 import com.capstone.free.education.data.remote.response.AskPredictResponse
 import com.capstone.free.education.data.remote.response.PredictionData
@@ -43,7 +42,6 @@ class SelfCheckFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_self_check, container, false)
 
-        // Inisialisasi view
         spNewRegister = view.findViewById(R.id.spNewRegister)
         etTransactionAmount = view.findViewById(R.id.etTransactionAmount)
         etUserCashout = view.findViewById(R.id.etUserCashout)
@@ -53,7 +51,6 @@ class SelfCheckFragment : Fragment() {
         tvResult = view.findViewById(R.id.tvResult)
         tvPredictionLink = view.findViewById(R.id.tvPredictionLink)
 
-        // Set tombol submit
         btnSubmit.setOnClickListener { submitSelfCheck() }
 
         return view
@@ -90,7 +87,6 @@ class SelfCheckFragment : Fragment() {
                     tvPredictionLink.visibility = View.VISIBLE
                     tvPredictionLink.text = result?.link
                     tvPredictionLink.setOnClickListener {
-                        // Bisa buka link di browser atau menggunakan intent
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result?.link))
                         startActivity(intent)
                     }

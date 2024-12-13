@@ -18,12 +18,12 @@ import com.capstone.free.education.view.ViewModelFactory
 import com.capstone.free.education.view.login.LoginActivity
 import com.capstone.free.education.view.main.MainViewModel
 import com.capstone.free.education.view.setting.SettingPreferences
+import com.capstone.free.education.view.welcome.WelcomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
-// ProfileFragment.kt
 class ProfileFragment : Fragment() {
-    private lateinit var binding: FragmentProfileBinding // Deklarasi binding
+    private lateinit var binding: FragmentProfileBinding
 
     private val viewModel by viewModels<MainViewModel> {
         val pref = SettingPreferences.getInstance(requireContext().dataStore)
@@ -34,19 +34,17 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inisialisasi binding di sini
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root // Mengembalikan root view dari binding
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAction() // Pastikan setupAction dipanggil setelah binding diinisialisasi
+        setupAction()
     }
 
     private fun setupAction() {
         binding.logoutButton.setOnClickListener {
-            // Jalankan logout di background thread
             lifecycleScope.launch {
                 val settingViewModel = ViewModelProvider(
                     requireActivity(),
@@ -54,29 +52,24 @@ class ProfileFragment : Fragment() {
                 ).get(SettingViewModel::class.java)
 
                 settingViewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkMode ->
-                    // Simpan tema saat ini sebelum logout
+
                     lifecycleScope.launch {
                         settingViewModel.saveThemeSetting(isDarkMode)
                     }
 
-                    // Logout dari SharedPreferences
                     val sharedPref = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE)
                     with(sharedPref.edit()) {
-                        clear() // Hapus semua data di SharedPreferences
+                        clear()
                         apply()
                     }
 
-                    // Logout dari Firebase
                     FirebaseAuth.getInstance().signOut()
 
-                    // Logout dari viewModel jika diperlukan
                     viewModel.logout()
 
-                    // Navigasi ke LoginActivity setelah logout
-                    startActivity(Intent(requireContext(), LoginActivity::class.java))
-                    requireActivity().finish() // Tutup aktivitas utama
+                    startActivity(Intent(requireContext(), WelcomeActivity::class.java))
+                    requireActivity().finish()
 
-                    // Nonaktifkan animasi transisi untuk logout cepat
                     requireActivity().overridePendingTransition(0, 0)
                 }
             }

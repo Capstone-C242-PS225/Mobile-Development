@@ -1,11 +1,9 @@
 package com.capstone.free.education.data.remote.retrofit
-
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 object ApiConfig {
     fun getApiService(): ApiService {
         val client = OkHttpClient.Builder()
@@ -13,18 +11,16 @@ object ApiConfig {
                 val request = chain.request().newBuilder()
                     .addHeader(
                         "x-api-key",
-                        "inikey"
-                    ) // Tambahkan API key Anda
+                        "QmFyYVN1a2FTYWdpcmlJenVtaTEzMDhkYXJpRXJvbWFuZ2FTZW5zZWk"
+                    )
 
-                    .addHeader("Content-Type", "application/json") // Tambahkan content type
+                    .addHeader("Content-Type", "application/json")
                     .build()
                 chain.proceed(request)
             }
             .build()
-
         val retrofit = Retrofit.Builder()
-
-        .baseUrl("ini api") // Ganti dengan URL API Anda
+        .baseUrl("https://api-cc-465803765985.asia-southeast2.run.app/")
         .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

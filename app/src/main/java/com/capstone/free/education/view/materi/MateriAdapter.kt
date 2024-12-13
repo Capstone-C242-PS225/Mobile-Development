@@ -27,15 +27,13 @@ class MateriAdapter(private val materiList: List<MateriData>) : RecyclerView.Ada
         fun bind(materi: MateriData) {
             binding.tvJudul.text = materi.judul
             binding.tvKategori.text = materi.kategori
+            binding.tvTarget.text = materi.target
 
-
-            // Load the image using Glide
             Glide.with(binding.root.context)
                 .load(materi.image)
                 .into(binding.imageMateri)
 
             binding.btnLink.setOnClickListener {
-                // Open the video link in the browser
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(materi.link))
                 binding.root.context.startActivity(intent)
             }

@@ -25,12 +25,10 @@ class MateriFragment : Fragment() {
     ): View? {
         binding = FragmentMateriBinding.inflate(inflater, container, false)
 
-        // Set up RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         materiAdapter = MateriAdapter(emptyList())
         binding.recyclerView.adapter = materiAdapter
 
-        // Fetch data from API
         fetchMateri()
 
         return binding.root

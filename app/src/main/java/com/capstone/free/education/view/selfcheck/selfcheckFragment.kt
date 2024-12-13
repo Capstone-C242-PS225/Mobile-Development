@@ -1,14 +1,23 @@
 package com.capstone.free.education.view.selfcheck
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.free.education.R
 import com.capstone.free.education.data.pref.SelfCheckResponse
+import com.capstone.free.education.data.remote.response.AskPredictRequest
+import com.capstone.free.education.data.remote.response.AskPredictResponse
 import com.capstone.free.education.data.remote.response.PredictionData
 import com.capstone.free.education.data.remote.retrofit.ApiConfig
 import com.capstone.free.education.databinding.FragmentSelfCheckBinding
@@ -19,112 +28,83 @@ import retrofit2.Response
 
 class SelfCheckFragment : Fragment() {
 
-    private lateinit var binding: FragmentSelfCheckBinding
-    private lateinit var adapter: SelfCheckAdapter
-
-    private val questions = listOf(
-        "Apakah anda merupakan pengguna baru judi online?",
-        "Berapa rata-rata uang yang telah anda gunakan untuk bermain judi online?",
-        "Berapa jumlah uang yang sudah anda keluarkan dari judi online?",
-        "Berapa uang yang anda dapat dari bermain judi online?",
-        "Apakah anda mengalami keuntungan atau kerugian selama bermain judi online?"
-    )
-
-    private var userResponse = SelfCheckResponse()
+    private lateinit var spNewRegister: Spinner
+    private lateinit var etTransactionAmount: EditText
+    private lateinit var etUserCashout: EditText
+    private lateinit var etCompanyCashout: EditText
+    private lateinit var etUserBalance: EditText
+    private lateinit var btnSubmit: Button
+    private lateinit var tvResult: TextView
+    private lateinit var tvPredictionLink: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSelfCheckBinding.inflate(inflater, container, false)
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_self_check, container, false)
 
-        setupRecyclerView()
-        setupSendButton()
+        // Inisialisasi view
+        spNewRegister = view.findViewById(R.id.spNewRegister)
+        etTransactionAmount = view.findViewById(R.id.etTransactionAmount)
+        etUserCashout = view.findViewById(R.id.etUserCashout)
+        etCompanyCashout = view.findViewById(R.id.etCompanyCashout)
+        etUserBalance = view.findViewById(R.id.etUserBalance)
+        btnSubmit = view.findViewById(R.id.btnSubmit)
+        tvResult = view.findViewById(R.id.tvResult)
+        tvPredictionLink = view.findViewById(R.id.tvPredictionLink)
 
-        return binding.root
+        // Set tombol submit
+        btnSubmit.setOnClickListener { submitSelfCheck() }
+
+        return view
     }
 
-    private fun setupRecyclerView() {
-        adapter = SelfCheckAdapter(questions) { answer, position ->
-            updateUserResponse(answer, position)
+    private fun submitSelfCheck() {
+        val newRegister = if (spNewRegister.selectedItem.toString() == "YA") 1 else 0
+        val transactionAmount = etTransactionAmount.text.toString().toIntOrNull()
+        val userCashout = etUserCashout.text.toString().toIntOrNull()
+        val companyCashout = etCompanyCashout.text.toString().toIntOrNull()
+        val userBalance = etUserBalance.text.toString().toIntOrNull()
+
+        if (transactionAmount == null || userCashout == null || companyCashout == null || userBalance == null) {
+            Toast.makeText(context, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
+            return
         }
-        binding.rvChatHistory.layoutManager = LinearLayoutManager(context)
-        binding.rvChatHistory.adapter = adapter
-    }
 
-    private fun updateUserResponse(answer: String, position: Int) {
-        when (position) {
-            0 -> userResponse.newRegister = answer.equals("ya", ignoreCase = true)
-            1 -> userResponse.transactionAmount = answer.toDoubleOrNull() ?: 0.0
-            2 -> userResponse.userTotalCashout = answer.toDoubleOrNull() ?: 0.0
-            3 -> userResponse.companyTotalCashout = answer.toDoubleOrNull() ?: 0.0
-            4 -> userResponse.profitOrLoss = answer
-        }
-    }
+        val request = AskPredictRequest(
+            newRegister = newRegister,
+            transaction_amount = transactionAmount,
+            user_total_cashout = userCashout,
+            company_total_cashout = companyCashout,
+            user_total_balance = userBalance
+        )
 
-    private fun setupSendButton() {
-        binding.btnSend.setOnClickListener {
-            preparePayload()
-            if (userResponse.isComplete()) {
-                sendToApi(userResponse)
-            } else {
-                Toast.makeText(context, "Harap jawab semua pertanyaan!", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun SelfCheckResponse.isComplete(): Boolean {
-        return newRegister != null &&
-                transactionAmount > 0.0 &&
-                userTotalCashout > 0.0 &&
-                companyTotalCashout > 0.0 &&
-                !profitOrLoss.isNullOrEmpty()
-    }
-
-    private fun preparePayload() {
-        if (userResponse.newRegister == null) userResponse.newRegister = false
-        if (userResponse.transactionAmount == 0.0) userResponse.transactionAmount = 1.0
-        if (userResponse.userTotalCashout == 0.0) userResponse.userTotalCashout = 1.0
-        if (userResponse.companyTotalCashout == 0.0) userResponse.companyTotalCashout = 1.0
-        if (userResponse.profitOrLoss.isNullOrEmpty()) userResponse.profitOrLoss = "tidak ada"
-    }
-
-    private fun sendToApi(response: SelfCheckResponse) {
-        val jsonResponse = Gson().toJson(response)
-        Log.d("SelfCheckFragment", "JSON Request: $jsonResponse")
-
-        val apiService = ApiConfig.getApiService()
-        val call = apiService.sendSelfCheckData(jsonResponse)
-
-        call.enqueue(object : Callback<PredictionData> {
-            override fun onResponse(call: Call<PredictionData>, response: Response<PredictionData>) {
+        ApiConfig.getApiService().askPredict(request).enqueue(object : Callback<AskPredictResponse> {
+            override fun onResponse(
+                call: Call<AskPredictResponse>,
+                response: Response<AskPredictResponse>
+            ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        showResult(it)
-                    } ?: run {
-                        Log.e("SelfCheckFragment", "Response body is null")
-                        Toast.makeText(context, "Gagal mengirim data!", Toast.LENGTH_SHORT).show()
+                    val result = response.body()?.data
+                    tvResult.text = "Prediksi: ${result?.predicted_addiction}\nRekomendasi: ${result?.kategori}"
+                    tvPredictionLink.visibility = View.VISIBLE
+                    tvPredictionLink.text = result?.link
+                    tvPredictionLink.setOnClickListener {
+                        // Bisa buka link di browser atau menggunakan intent
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result?.link))
+                        startActivity(intent)
                     }
                 } else {
-                    logAndShowError(response)
+                    tvResult.text = "Gagal mendapatkan hasil."
                 }
             }
 
-            override fun onFailure(call: Call<PredictionData>, t: Throwable) {
-                Log.e("SelfCheckFragment", "Network Failure: ${t.message}", t)
-                Toast.makeText(context, "Terjadi kesalahan jaringan: ${t.message}", Toast.LENGTH_SHORT).show()
+            override fun onFailure(call: Call<AskPredictResponse>, t: Throwable) {
+                tvResult.text = "Error: ${t.message}"
             }
         })
     }
-
-    private fun logAndShowError(response: Response<*>) {
-        val errorBody = response.errorBody()?.string()
-        Log.e("SelfCheckFragment", "Error Code: ${response.code()}, Error Body: $errorBody")
-        Toast.makeText(context, "Gagal mengirim data! Error Code: ${response.code()}", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showResult(result: PredictionData) {
-        val prediction = result.data?.predictedAddiction
-        Toast.makeText(context, "Hasil Analisis: $prediction", Toast.LENGTH_LONG).show()
-    }
 }
+
+
+

@@ -1,35 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="24dp"
+    android:background="#f7f7f7"
     tools:context=".view.selfcheck.SelfCheckFragment">
 
-    <!-- RecyclerView untuk menampilkan pertanyaan dan jawaban -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_chatHistory"
-        android:layout_width="410dp"
-        android:layout_height="517dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@id/til_inputTextLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Tombol Kirim Jawaban -->
-    <Button
-        android:id="@+id/btn_send"
+    <!-- Pertanyaan untuk Spinner -->
+    <TextView
+        android:id="@+id/tvNewRegisterQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="89dp"
-        android:text="Send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:text="Apakah Anda pengguna baru?"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_inputTextLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <Spinner
+        android:id="@+id/spNewRegister"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:entries="@array/new_register_options"
+        app:layout_constraintTop_toBottomOf="@id/tvNewRegisterQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/spinner_background"/>
+
+    <!-- Pertanyaan untuk Rata-rata uang digunakan -->
+    <TextView
+        android:id="@+id/tvTransactionAmountQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rata-rata uang digunakan (Rp)"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        app:layout_constraintTop_toBottomOf="@id/spNewRegister"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/etTransactionAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Masukkan jumlah uang"
+        android:textColor="#212121"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintTop_toBottomOf="@id/tvTransactionAmountQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"/>
+
+    <!-- Pertanyaan untuk Jumlah uang keluar -->
+    <TextView
+        android:id="@+id/tvUserCashoutQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jumlah uang keluar (Rp)"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        app:layout_constraintTop_toBottomOf="@id/etTransactionAmount"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/etUserCashout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Masukkan jumlah uang keluar"
+        android:textColor="#212121"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintTop_toBottomOf="@id/tvUserCashoutQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"/>
+
+    <!-- Pertanyaan untuk Jumlah uang didapatkan -->
+    <TextView
+        android:id="@+id/tvCompanyCashoutQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jumlah uang didapatkan (Rp)"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        app:layout_constraintTop_toBottomOf="@id/etUserCashout"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/etCompanyCashout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Masukkan jumlah uang didapatkan"
+        android:textColor="#212121"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintTop_toBottomOf="@id/tvCompanyCashoutQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"/>
+
+    <!-- Pertanyaan untuk Keuntungan/Rugi -->
+    <TextView
+        android:id="@+id/tvUserBalanceQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Keuntungan/Rugi (Rp)"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        app:layout_constraintTop_toBottomOf="@id/etCompanyCashout"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/etUserBalance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Masukkan keuntungan/rugi"
+        android:textColor="#212121"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintTop_toBottomOf="@id/tvUserBalanceQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"/>
+
+    <!-- Tombol Submit -->
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="#ffffff"
+        android:backgroundTint="#6200EE"
+        app:layout_constraintTop_toBottomOf="@id/etUserBalance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp" />
+
+    <!-- Hasil Prediksi -->
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Hasil prediksi akan muncul di sini"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        app:layout_constraintTop_toBottomOf="@id/btnSubmit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:gravity="center"/>
+
+    <!-- Link untuk hasil prediksi -->
+    <TextView
+        android:id="@+id/tvPredictionLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Klik untuk detail lebih lanjut"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_light"
+        android:visibility="gone"
+        android:autoLink="web"
+        app:layout_constraintTop_toBottomOf="@id/tvResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

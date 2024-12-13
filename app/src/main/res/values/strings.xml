@@ -48,4 +48,13 @@
     <string name="tvAreaLabel">Daerah</string>
     <string name="btnSubmitSpending">button spending</string>
     <string name="tvResultSpending">hasil spending</string>
+    <string-array name="new_register_options">
+        <item>YA</item>
+        <item>TIDAK</item>
+    </string-array>
+
+    <string name="tvNewRegisterQuestion" >soal1</string>
+    <string name="tvUserCashoutQuestion" >soal3</string>
+    <string name="tvCompanyCashoutQuestion" >soal4</string>
+    <string name="tvUserBalanceQuestion" >soal5</string>
 </resources>

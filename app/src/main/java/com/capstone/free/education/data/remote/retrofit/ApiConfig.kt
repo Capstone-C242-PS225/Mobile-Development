@@ -11,7 +11,7 @@ object ApiConfig {
                 val request = chain.request().newBuilder()
                     .addHeader(
                         "x-api-key",
-                        "QmFyYVN1a2FTYWdpcmlJenVtaTEzMDhkYXJpRXJvbWFuZ2FTZW5zZWk"
+                        "ini api key"
                     )
 
                     .addHeader("Content-Type", "application/json")
@@ -20,7 +20,7 @@ object ApiConfig {
             }
             .build()
         val retrofit = Retrofit.Builder()
-        .baseUrl("https://api-cc-465803765985.asia-southeast2.run.app/")
+        .baseUrl("api")
         .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
